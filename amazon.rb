@@ -1,6 +1,6 @@
 require "rainbow"
 
-menu = ["Author", "Title", "Category", "Quit"]
+@menu = ["Author", "Title", "Category", "Quit"]
 
 @books = [
   ["Steve Jobs", "Walter Isaacson", "Memoir"],
@@ -23,12 +23,68 @@ menu = ["Author", "Title", "Category", "Quit"]
   ["Bird goes tweet", "Mr Twitter", "Children"]
 ]
 
+class Books
+  def initialize(author, title, category)
+    @author = author
+    @title = title
+    @category = category
+  end
+  attr_accessor :author, :title, :category
+end
+
+
+class Menu
+  def initialize(selection)
+    @selection = selection
+  end
+
+  attr_accessor :selection
+
+def menuList
+  #Prints menu as an ordered list
+  choice = false
+  while
+
+  i = 0
+  until i > @menu.length - 1 do
+     puts (i + 1).to_s + " " + @menu[i]
+    i = i + 1
+  end
+
+  menu_choice = gets.chomp.to_i
+  if menu_choice != 1 && menu_choice != 2 && menu_choice != 3 && menu_choice != 4
+    noWay()
+  else
+    choice = true
+    if menu_choice == 1 #Author option
+
+  arrayFilter("author")
+
+    elsif menu_choice == 2 #Title option
+      i = 0
+      until i > @books.length - 1 do
+         puts (i + 1).to_s + " " + @books [i][0] + " - " + @books[i][1]+ " (" + @books[i][2] + ")"
+        i = i + 1
+      end
+
+    elsif menu_choice == 3
+      categoryFilter("category")
+
+
+    elsif menu_choice == 4
+      break
+      end
+    end
+  end
+end
+end
+
 
 def noWay ()
  puts "Can't you see the options?"
 end
 
-def arrayFilter()
+def arrayFilter(author)
   i = 0
   categoriesFiltered = []
   until i > @books.length - 1 do #Category option
@@ -106,39 +162,5 @@ end
 ####### The program starts here #######
 puts "Welcome to Amazon... Select a search option:"
 
-
-#Prints menu as an ordered list
-choice = false
-while
-
-i = 0
-until i > menu.length - 1 do
-   puts (i + 1).to_s + " " + menu[i]
-  i = i + 1
-end
-
-menu_choice = gets.chomp.to_i
-if menu_choice != 1 && menu_choice != 2 && menu_choice != 3 && menu_choice != 4
-  noWay()
-else
-  choice = true
-  if menu_choice == 1 #Author option
-
-arrayFilter()
-
-  elsif menu_choice == 2 #Title option
-    i = 0
-    until i > @books.length - 1 do
-       puts (i + 1).to_s + " " + @books [i][0] + " - " + @books[i][1]+ " (" + @books[i][2] + ")"
-      i = i + 1
-    end
-
-  elsif menu_choice == 3
-    categoryFilter("category")
-
-
-  elsif menu_choice == 4
-    break
-    end
-  end
-end
+step1 = Menu.new("selection")
+step1.menuList
